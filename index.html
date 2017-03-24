@@ -1,0 +1,53 @@
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+</head>
+<body ng-app="photoApp" ng-controller="photoCtrl" ng-cloak>
+  <!--
+    Your HTML content here
+  -->
+  <div>
+    <h1>{{ photo.title }}</h1>
+    <p>Explanation: {{ photo.explanation }}</p>
+    <p>Copyright: {{ photo.copyright }}</p>
+    <p>Date: {{ photo.date }}</p>
+    <md-datepicker ng-model="photo-date"></md-datepicker>
+  </div>
+
+  <img ng-src="{{ photo.url }}">
+  <p><a ng-href="{{ photo.url }}" target="_blank">Normal quality: {{ photo.url }}</a></p>
+  <p><a ng-href="{{ photo.hdurl }}" target="_blank">HD quality: {{ photo.hdurl }}</a></p>
+
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">    
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    var app = angular.module('photoApp', ['ngMaterial']);
+    
+        app.controller('photoCtrl', function($scope, $http){
+          $http.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY').then(function(response) {
+            $scope.photo = response.data;
+          });
+        });
+  </script>
+  
+</body>
+</html>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+-->
