@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Angular Material style sheet -->
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body ng-app="photoApp" ng-controller="photoCtrl" ng-init="loadPhoto(NASA)" ng-cloak>
   <!--
@@ -11,20 +12,20 @@
   -->
 
   <md-content layout-padding>
-    <img ng-src="{{ photo.url }}" ng-if="photo.media_type === 'image'">
-    <iframe ng-src="{{ videoUrl }}" ng-if="photo.media_type === 'video'" width="420" height="315"></iframe>
     <md-card>
       <md-card-title><h1>{{ photo.title }}</h1></md-card-title>
       <md-card-content>
         <h3>Explanation</h3>
         <p>{{ photo.explanation }}</p>
-        <p><a ng-href="{{ photo.url }}" target="_blank">Normal quality: {{ photo.url }}</a></p>
-        <p><a ng-href="{{ photo.hdurl }}" target="_blank">HD quality: {{ photo.hdurl }}</a></p>
+        <md-button class="md-raised" ng-href="{{ photo.url }}" ng-if="photo.media_type === 'image'" download><md-icon>file_download</md-icon> DOWNLOAD</md-button>
+        <md-button class="md-raised" ng-href="{{ photo.hdurl }}" ng-if="photo.media_type === 'image'" download><md-icon>file_download</md-icon> HD VERSION</md-button>
         <p ng-show="photo.copyright"><em>Copyright: {{ photo.copyright }}</em></p>
       </md-card-content>
       <md-datepicker ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate))" md-max-date="maxDate"></md-datepicker>
     </md-card>
 
+    <img ng-src="{{ photo.url }}" ng-if="photo.media_type === 'image'">
+    <iframe ng-src="{{ videoUrl }}" ng-if="photo.media_type === 'video'" width="420" height="315"></iframe>
   </md-content>
 
   <!-- Angular Material requires Angular.js Libraries -->
