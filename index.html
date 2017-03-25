@@ -4,22 +4,26 @@
   <!-- Angular Material style sheet -->
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 </head>
-<body ng-app="photoApp" ng-controller="photoCtrl" ng-cloak>
+<body ng-app="photoApp" ng-controller="photoCtrl" ng-init="loadPhoto(NASA)" ng-cloak>
   <!--
     Your HTML content here
   -->
-  <div>
-    <h1>{{ photo.title }}</h1>
-    <p>Explanation: {{ photo.explanation }}</p>
-    <p>Copyright: {{ photo.copyright }}</p>
-    <p>Date: {{ photo.date }}</p>
-    <md-datepicker ng-model="photo-date"></md-datepicker>
-  </div>
 
-  <img ng-src="{{ photo.url }}">
-  <p><a ng-href="{{ photo.url }}" target="_blank">Normal quality: {{ photo.url }}</a></p>
-  <p><a ng-href="{{ photo.hdurl }}" target="_blank">HD quality: {{ photo.hdurl }}</a></p>
+  <md-content layout-padding>
+    <div>
+      <h1>{{ photo.title }}</h1>
+      <p>Explanation: {{ photo.explanation }}</p>
+      <p>Copyright: {{ photo.copyright }}</p>
+      <p>Date: {{ photo.date }}</p>
+      <md-datepicker ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate))"></md-datepicker> <!--ng-change="loadPhoto(customUrl)"-->
+      <p>Custom date: {{ customDate }}</p>
+      <p>Custom date: {{ customDate.toISOString().split('T')[0]; }}</p>
+    </div>
 
+    <img ng-src="{{ photo.url }}">
+    <p><a ng-href="{{ photo.url }}" target="_blank">Normal quality: {{ photo.url }}</a></p>
+    <p><a ng-href="{{ photo.hdurl }}" target="_blank">HD quality: {{ photo.hdurl }}</a></p>
+  </md-content>
 
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -38,9 +42,43 @@
     var app = angular.module('photoApp', ['ngMaterial']);
     
         app.controller('photoCtrl', function($scope, $http){
-          $http.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY').then(function(response) {
-            $scope.photo = response.data;
-          });
+
+          //$scope.NASA = 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY';
+          $scope.TOKEN = 'DEMO_KEY';
+          $scope.NASA = 'https://api.nasa.gov/planetary/apod?api_key=' + $scope.TOKEN;
+          $scope.customUrl = $scope.NASA + '&date=';
+          $scope.customDate = '';
+          //$scope.customUrl = $scope.NASA + '&date=' + toString($scope.customDate.toISOString().split('T')[0]);
+          
+          $scope.loadPhoto = function(url) {
+            $http.get(url).then(function(response) {
+              $scope.photo = response.data;
+            });
+          };
+
+          // Convert date from '"YYYY-MM-DDT00:00:00.000Z"' to 'YYYY-MM-DD'
+          $scope.convertDate = function(date) {
+            //return toString(date.toISOString().split('T')[0]); // So problem was, I put the date inside toString() when I should have put toString() after the date!
+            return date.toISOString().split('T')[0].toString();
+          };
+
+          // Append date to a url
+          $scope.appendUrl = function(url, date) {
+            return url + date;
+          };
+
+          //$scope.loadPhoto($scope.NASA);
+
+/*
+          $scope.customDate = new Date();
+          $scope.customDateUrl = $scope.customDate.toISOString().split('T')[0];
+
+          $scope.loadPhoto = function($http) {
+            $http.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY' + '&date=' + $scope.customDateUrl).then(function(response) {
+              $scope.photo = response.data;
+            });
+          };*/
+
         });
   </script>
   
