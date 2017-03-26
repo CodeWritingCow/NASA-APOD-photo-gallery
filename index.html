@@ -11,23 +11,51 @@
   <!--
     Your HTML content here
   -->
+    
+    <md-content layout>
 
-  <md-content layout-padding>
-    <md-card>
-      <md-card-title><h1>{{ photo.title }}</h1></md-card-title>
-      <md-card-content>
-        <h3>Explanation</h3>
-        <p>{{ photo.explanation }}</p>
-        <md-button class="md-raised" ng-href="{{ photo.url }}" ng-if="photo.media_type === 'image'" download><md-icon>file_download</md-icon> DOWNLOAD</md-button>
-        <md-button class="md-raised" ng-href="{{ photo.hdurl }}" ng-if="photo.media_type === 'image'" download><md-icon>file_download</md-icon> HD VERSION</md-button>
-        <p ng-show="photo.copyright"><em>Copyright: {{ photo.copyright }}</em></p>
-      </md-card-content>
-      <md-datepicker ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate))" md-max-date="maxDate"></md-datepicker>
-    </md-card>
+      <md-card flex="25" layout="row">
+        <div>
+          <md-card-content>
+            <md-card-subtitle><h3>NASA Astronomy Photo of the Day</h3></md-card-subtitle>
+            <md-calendar ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate))" md-max-date="maxDate"></md-calendar>
+          </md-card-content>
+        </div>
+      </md-card>
 
-    <img ng-src="{{ photo.url }}" ng-if="photo.media_type === 'image'">
-    <iframe ng-src="{{ videoUrl }}" ng-if="photo.media_type === 'video'" width="420" height="315"></iframe>
-  </md-content>
+      <md-card flex="50" md-whiteframe="3">
+        <img ng-src="{{ photo.url }}" ng-if="photo.media_type === 'image'">
+        <iframe ng-src="{{ videoUrl }}" ng-if="photo.media_type === 'video'" width="100%" height="100%"></iframe>
+
+        <md-card-actions align="end">
+          <span ng-show="photo.copyright"><em>Copyright: {{ photo.copyright }}</em></span>
+          <md-datepicker ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate))" md-max-date="maxDate"></md-datepicker>
+          <md-button class="md-raised" ng-href="{{ photo.url }}" ng-if="photo.media_type === 'image'" download><md-icon>file_download</md-icon> DOWNLOAD</md-button>
+          <md-button class="md-raised" ng-href="{{ photo.hdurl }}" ng-if="photo.media_type === 'image'" download><md-icon>file_download</md-icon> HD VERSION</md-button>
+        </md-card-actions>
+
+      </md-card>
+
+      <md-card flex="25" layout="row">
+        <div>
+          <md-card-title>
+            <md-card-title-text>
+              <h1>{{ photo.title }}</h1>
+            </md-card-title-text>
+          </md-card-title>
+          <md-divider></md-divider>
+          <md-card-content>
+            <h3>Explanation</h3>
+            <p>{{ photo.explanation }}</p>
+            <md-divider></md-divider>
+            <!--<p>{{ customDate.toLocaleDateString() }}</p>-->
+            <p>{{ customDate.toDateString() }}</p>
+          </md-card-content>
+        </div>
+      </md-card>
+
+    </md-content>
+  
 
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>

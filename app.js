@@ -30,9 +30,4 @@ var app = angular.module('photoApp', ['ngMaterial']);
         return date.toISOString().split('T')[0].toString();
       };
 
-      // Append date to a url
-      $scope.appendUrl = function(url, date) {
-        return url + date;
-      };
-
     });
