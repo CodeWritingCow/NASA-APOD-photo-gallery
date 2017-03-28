@@ -9,6 +9,7 @@ var app = angular.module('photoApp', ['ngMaterial']);
       $scope.NASA = 'https://api.nasa.gov/planetary/apod?api_key=' + $scope.TOKEN;
       $scope.customUrl = $scope.NASA + '&date=';
       $scope.customDate = new Date();
+      $scope.minDate = new Date('1995-06-16');
       $scope.maxDate = new Date();
       $scope.videoUrl;
       
