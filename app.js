@@ -3,10 +3,12 @@
  */
 var app = angular.module('photoApp', ['ngMaterial']);
 
-    app.controller('photoCtrl', function($scope, $http, $sce){
+    app.controller('photoCtrl', photoCtrl);
 
-      $scope.TOKEN = 'DEMO_KEY';
-      $scope.NASA = 'https://api.nasa.gov/planetary/apod?api_key=' + $scope.TOKEN;
+    function photoCtrl($scope, $http, $sce, token) {
+
+      $scope.token = token;
+      $scope.NASA = 'https://api.nasa.gov/planetary/apod?api_key=' + $scope.token;
       $scope.customUrl = $scope.NASA + '&date=';
       $scope.customDate = new Date();
       $scope.minDate = new Date('1995-06-16');
@@ -31,4 +33,4 @@ var app = angular.module('photoApp', ['ngMaterial']);
         return date.toISOString().split('T')[0].toString();
       };
 
-    });
+    };

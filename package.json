@@ -1,0 +1,36 @@
+{
+  "name": "nasa-apod-space-photo-gallery",
+  "version": "1.0.0",
+  "description": "App that shows NASA's Astronomy Picture of the Day (APOD) by date via the space agency's API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeWritingCow/NASA-APOD-photo-gallery.git"
+  },
+  "keywords": [
+    "Angular",
+    "Material",
+    "Design",
+    "Angular",
+    "Material",
+    "NASA",
+    "space",
+    "astronomy",
+    "photos"
+  ],
+  "author": "Gary Pang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeWritingCow/NASA-APOD-photo-gallery/issues"
+  },
+  "homepage": "https://github.com/CodeWritingCow/NASA-APOD-photo-gallery#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "gulp": "^3.9.1",
+    "gulp-ng-config": "^1.4.0"
+  }
+}

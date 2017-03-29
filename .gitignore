@@ -18,7 +18,11 @@ $RECYCLE.BIN/
 *.lnk
 
 # API token
-token.js
+config.js
+config.json
+
+# Dependency directories
+node_modules
 
 # =========================
 # Operating System Files
