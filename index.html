@@ -6,12 +6,24 @@
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
   <!-- Material Icons style sheet -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--  Google Analytics tracking code -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-53154916-2', 'auto');
+    ga('send', 'pageview');
+    </script>  
 </head>
 
 <body ng-app="photoApp" ng-controller="photoCtrl" ng-init="loadPhoto(NASA)" ng-cloak>
   <!--
     Your HTML content here
   -->
+<div ng-include="'navMenu.htm'"></div>
 
   <md-content layout-xs="column" layout-sm="column" layout="row" layout-padding>
 
@@ -44,12 +56,13 @@
         <p>{{ photo.explanation }}</p>
     </md-card>
 
-    <md-card flex-gt-sm="100" hide-md flex-lg="30">
+    <md-card flex-gt-sm="100" hide-md flex-lg="30" layout-align="center center">
       <h3>NASA Astronomy Photo of the Day</h3>
       <md-divider></md-divider>
       <p><strong>{{ customDate.toDateString() }}</strong></p>
       <md-calendar ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate))" md-min-date="minDate" md-max-date="maxDate"></md-calendar>
       <md-button ng-hide="convertDate(customDate) === convertDate(maxDate)" class="md-raised md-primary" ng-click="customDate=maxDate;loadPhoto(customUrl + convertDate(customDate))"><md-icon>today</md-icon> RETURN TO TODAY'S PHOTO</md-button>
+      <p><em>This site is not affiliated with NASA.</em></p>
     </md-card>
 
   </div>
@@ -68,7 +81,7 @@
   <script type="text/javascript" src="config.js"></script>
 </md-content>
 
-<footer style="text-align:center;">Made by Gary Pang at <a href="http://www.codewritingcow.com">CodeWritingCow.com</a>. This site is not affiliated with NASA.</footer>
+  <div ng-include="'footer.htm'"></div>
 </html>
 
 <!--
