@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/CodeWritingCow/NASA-APOD-photo-gallery#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "gulp": "^3.9.1",
     "gulp-ng-config": "^1.4.0"

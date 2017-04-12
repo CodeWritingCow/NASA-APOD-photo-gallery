@@ -3,20 +3,54 @@
  */
 var app = angular.module('photoApp', ['ngMaterial']);
 
-    app.controller('photoCtrl', photoCtrl);
+    // Get API token from server
+    app.factory('tokenFactory', function($http){
+      return {
+        async: function (){
+          return $http.get('/token');
+        }
+      };
+    });
 
-    function photoCtrl($scope, $http, $sce, token) {
+    // Create custom HTTP header name 'allow-access'
+    app.factory('httpRequestInterceptor', function(){
+      return {
+        request: function(config) {
+          config.headers['x-custom-header-name'] = 'allow-access';
+          return config;
+        }
+      };
+    });
 
-      $scope.token = token;
-      $scope.NASA = 'https://api.nasa.gov/planetary/apod?api_key=' + $scope.token;
+    // Inject custom HTTP header name into http requests from Angular app
+    app.config(function($httpProvider){
+      $httpProvider.interceptors.push('httpRequestInterceptor');
+    });
+
+    app.controller('photoCtrl', function($scope, $http, $sce, tokenFactory) {
+      tokenFactory.async().then(function(data){
+        $scope.data = data;
+        $scope.token = $scope.data.data.token;
+
+        // Make call to NASA API using token returned by server.
+        // Since the server response is asynchronous, it returns data that are "undefined" everywhere but here.
+        $scope.loadPhoto($scope.NASA, $scope.token);
+      });
+
+      $scope.token;
+
+      $scope.NASA = 'https://api.nasa.gov/planetary/apod?';
       $scope.customUrl = $scope.NASA + '&date=';
       $scope.customDate = new Date();
       $scope.minDate = new Date('1995-06-16');
       $scope.maxDate = new Date();
       $scope.videoUrl;
       
-      $scope.loadPhoto = function(url) {
-        $http.get(url).then(function(response) {
+      // Get photo data from NASA API
+      $scope.loadPhoto = function(url, token) {
+        $http.get(url, {
+          params: {api_key: token}
+        }).then(function(response) {
           $scope.photo = response.data;
 
           // If media is video, save url as videoUrl. (ex. APOD for 2017-02-01 is a video.)
@@ -32,5 +66,4 @@ var app = angular.module('photoApp', ['ngMaterial']);
       $scope.convertDate = function(date) {
         return date.toISOString().split('T')[0].toString();
       };
-
-    };
+    });

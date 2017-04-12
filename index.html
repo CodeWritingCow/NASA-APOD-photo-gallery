@@ -20,7 +20,7 @@
   </script>
 </head>
 
-<body ng-app="photoApp" ng-controller="photoCtrl" ng-init="loadPhoto(NASA)" ng-cloak>
+<body ng-app="photoApp" ng-controller="photoCtrl" ng-init="" ng-cloak>
   <!--
     Your HTML content here
   -->
@@ -39,7 +39,7 @@
         <span hide-xs>
           <md-button class="md-raised md-primary" ng-href="{{ photo.url }}" ng-if="photo.media_type === 'image'" download><md-icon>file_download</md-icon> DOWNLOAD</md-button>
           <md-button class="md-raised md-primary" ng-href="{{ photo.hdurl }}" ng-if="photo.media_type === 'image'" download><md-icon>file_download</md-icon> HD VERSION</md-button>
-          <md-datepicker ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate))" md-max-date="maxDate"></md-datepicker>
+          <md-datepicker ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate), token)" md-max-date="maxDate"></md-datepicker>
         </span>
 
         <!-- UI components for mobile devices -->
@@ -61,9 +61,9 @@
       <h3>NASA Astronomy Photo of the Day</h3>
       <md-divider></md-divider>
       <p><strong>{{ customDate.toDateString() }}</strong></p>
-      <md-calendar ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate))" md-min-date="minDate" md-max-date="maxDate"></md-calendar>
-      <md-button ng-hide="convertDate(customDate) === convertDate(maxDate)" class="md-raised md-primary" ng-click="customDate=maxDate;loadPhoto(customUrl + convertDate(customDate))"><md-icon>today</md-icon> RETURN TO TODAY'S PHOTO</md-button>
-      <p><em>This site runs on an open NASA API.</em></p>
+      <md-calendar ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate), token)" md-min-date="minDate" md-max-date="maxDate"></md-calendar>
+      <md-button ng-hide="convertDate(customDate) === convertDate(maxDate)" class="md-raised md-primary" ng-click="customDate=maxDate;loadPhoto(customUrl + convertDate(customDate), token)"><md-icon>today</md-icon> RETURN TO TODAY'S PHOTO</md-button>
+      <p><em>This site is powered by NASA's API</em></p>
     </md-card>
 
   </div>
@@ -79,7 +79,6 @@
   
   <!-- Your application bootstrap  -->
   <script type="text/javascript" src="app.js"></script>
-  <script type="text/javascript" src="config.js"></script>
 </md-content>
 
   <div ng-include="'footer.htm'"></div>
