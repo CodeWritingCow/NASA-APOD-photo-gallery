@@ -53,7 +53,6 @@
     <md-card flex-gt-sm="100" flex-md="40" flex-lg="30" layout-padding>
       <h1>{{ photo.title }}</h1>
       <md-divider></md-divider>
-      <h3>Explanation</h3>
         <p>{{ photo.explanation }}</p>
     </md-card>
 
@@ -63,7 +62,6 @@
       <p><strong>{{ customDate.toDateString() }}</strong></p>
       <md-calendar ng-model="customDate" ng-change="loadPhoto(customUrl + convertDate(customDate), token)" md-min-date="minDate" md-max-date="maxDate"></md-calendar>
       <md-button ng-hide="convertDate(customDate) === convertDate(maxDate)" class="md-raised md-primary" ng-click="customDate=maxDate;loadPhoto(customUrl + convertDate(customDate), token)"><md-icon>today</md-icon> RETURN TO TODAY'S PHOTO</md-button>
-      <p><em>This site is powered by NASA's API</em></p>
     </md-card>
 
   </div>
