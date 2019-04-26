@@ -1,7 +1,6 @@
-# NASA APOD Photo Gallery
-
 ![My image](screenshot.gif)
 
+# NASA APOD Photo Gallery
 This repository contains the source for an AngularJS application for viewing images in NASA's Astronomy Picture of the Day (APOD) series. The application provides users with a calendar interface for finding the captioned images by date, and downloading each image or its HD version. Users can also watch any video that NASA uploaded as its "Picture of the Day." The application retrieves images and videos via the space agency's API.
 
 ## Requirements
