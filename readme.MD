@@ -17,7 +17,7 @@ This repository contains the source for an [AngularJS application](https://nasa-
 - [Material Icons](https://fonts.googleapis.com/icon?family=Material+Icons) style sheet
 
 ## Author
-**Gary Pang** - [codewritingcow.com](http://codewritingcow.com)
+**Gary Pang** - [garypang.dev](https://garypang.dev)
 
 ## References
 - [NASA APOD API documentation](https://api.nasa.gov/api.html#apod)
